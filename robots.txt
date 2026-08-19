@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gudangwpcpalembang.vercel.app/sitemap.xml
