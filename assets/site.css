@@ -15,3 +15,63 @@
 @media(max-width:960px){.hero-photo,.hero-photo img{min-height:420px}.price-cards{grid-template-columns:1fr 1fr}.photo-grid-5{grid-template-columns:repeat(3,1fr)}.photo-grid{grid-template-columns:repeat(2,1fr)}.project-grid{grid-template-columns:1fr 1fr;grid-auto-rows:260px}.project-grid .project-wide{grid-column:span 2;grid-row:auto}.gallery-masonry{columns:2}}
 @media(max-width:640px){.hero-photo,.hero-photo img{min-height:320px}.hero-photo figcaption{left:16px;bottom:14px}.price-cards,.photo-grid,.photo-grid-5,.project-grid{grid-template-columns:1fr}.project-grid .project-wide{grid-column:auto}.photo-grid img,.photo-grid-5 img{height:310px}.gallery-masonry{columns:1}.product-detail-photo img{height:360px}.calc-photo{min-height:300px}.calc-photo img{min-height:300px}.price-card strong{font-size:27px}}
 .footer-logo{filter:none;background:#fffaf1;border-radius:12px;padding:7px 10px;width:240px;height:auto}
+
+
+/* v3 — image ratio & responsive quality patch (19 Aug 2026)
+   Tujuan: semua foto mempertahankan proporsi asli; cropping hanya via object-fit, tidak stretching. */
+img{height:auto}
+
+/* Hero: explicit aspect ratio instead of unresolved percentage-height + min-height. */
+.hero-photo{aspect-ratio:4/3;min-height:0;position:relative}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;min-height:0;object-fit:cover;object-position:center 50%}
+
+/* Product cards: stable card ratio, never stretch source photos. */
+.product-visual{height:auto;aspect-ratio:4/3;background:#f3f1ec}
+.product-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.product-visual img[src*="wpc-panel"]{object-position:center 62%}
+.product-visual img[src*="wallboard"]{object-position:center 52%}
+.product-visual img[src*="uv-marble"]{object-position:center}
+
+/* WPC motif: portrait source photos stay portrait. */
+.photo-grid figure{display:flex;flex-direction:column;min-width:0}
+.photo-grid img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.photo-grid-5 img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center 62%}
+.photo-grid figcaption{margin-top:auto}
+
+/* Project grid: mixed-size layout with explicit ratios, no forced row heights. */
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:auto;grid-auto-flow:dense;gap:16px;align-items:start}
+.project-grid figure{height:auto;display:flex;flex-direction:column;position:relative}
+.project-grid figure img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.project-grid .project-wide{grid-column:span 2;grid-row:auto}
+.project-grid .project-wide img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:center}
+
+/* Calculator and detail photos: natural proportional boxes. */
+.calc-photo{min-height:0;display:flex;flex-direction:column;position:relative}
+.calc-photo img{width:100%;height:auto;min-height:0;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.calc-photo figcaption{position:static;background:#fff}
+.product-detail-photo{min-height:0;display:flex;flex-direction:column}
+.product-detail-photo img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
+
+/* Gallery uses natural source ratios; important for portrait project photos. */
+.gallery-masonry img{width:100%;height:auto;max-height:none;object-fit:initial}
+
+/* Avoid layout shift and keep cards clean. */
+.product-card,.photo-grid figure,.project-grid figure,.gallery-masonry figure,.calc-photo,.product-detail-photo{contain:layout paint}
+
+@media(max-width:960px){
+  .hero-photo,.hero-photo img{min-height:0}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
+  .project-grid .project-wide{grid-column:span 2;grid-row:auto}
+}
+@media(max-width:640px){
+  .hero-photo,.hero-photo img{min-height:0}
+  .hero-photo{aspect-ratio:4/3;border-radius:22px}
+  .product-visual{height:auto;aspect-ratio:4/3}
+  .photo-grid img{height:auto;aspect-ratio:4/3}
+  .photo-grid-5 img{height:auto;aspect-ratio:3/4}
+  .project-grid{grid-template-columns:1fr;grid-auto-rows:auto}
+  .project-grid .project-wide{grid-column:auto;grid-row:auto}
+  .project-grid .project-wide img,.project-grid figure img{height:auto;aspect-ratio:4/3}
+  .product-detail-photo img{height:auto;aspect-ratio:4/3}
+  .calc-photo{min-height:0}.calc-photo img{height:auto;min-height:0;aspect-ratio:4/3}
+}

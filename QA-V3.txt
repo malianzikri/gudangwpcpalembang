@@ -1,0 +1,7 @@
+Gudang WPC Palembang — QA v3
+
+HTML pages checked: 15
+Raster images checked: 26
+Issues: 0
+
+PASS — no broken internal links/images and core SEO tags are present.

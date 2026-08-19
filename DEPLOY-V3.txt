@@ -1,0 +1,21 @@
+GUDANG WPC & PVC PALEMBANG — V3 FINAL PATCH
+
+Yang diperbaiki:
+- Rasio foto hero, produk, motif, project, kalkulator, dan product detail agar tidak ketarik.
+- Foto portrait dan landscape tidak lagi dipaksa ke tinggi yang tidak proporsional.
+- Galeri project mempertahankan rasio natural.
+- Intrinsic width/height gambar ditambahkan untuk mengurangi layout shift.
+- Hero diberi fetchpriority=high; gambar lain lazy-load.
+- 404 diubah menjadi noindex,follow.
+- Product structured data ditambahkan ke WPC, Wallboard, dan UV Marble.
+- Sitemap diperkuat dengan image sitemap entries.
+- Cache sitemap/robots/HTML dibuat revalidate agar update SEO cepat terbaca setelah deploy.
+
+DEPLOY:
+1. Ganti seluruh isi repository Vercel lama dengan isi folder ini.
+2. Commit/push ke branch production.
+3. Tunggu deployment selesai.
+4. Buka website dengan hard refresh/incognito.
+5. Setelah live, submit /sitemap.xml di Google Search Console dan request indexing homepage + halaman produk utama.
+
+Canonical tetap: https://gudangwpcpalembang.vercel.app
